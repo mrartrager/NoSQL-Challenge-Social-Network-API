@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('./') // will be ./config/connection just havent created file path yet
+const db = require('./config/connection')
 const routes = require ('./') //will be ./routes just havent created file path yet
 
 const PORT = 5001;
