@@ -1,90 +1,111 @@
-const { User, Thought } = require("../models");
+const { User, Thought } = require('../models');
 
-module.exports = {
-  getUsers(req, res) {
-    User.find()
-      .then((users) => res.json(users))
-      .catch((err) => res.status(500).json(err));
-  },
-  // Get a single user
-  getSingleUser(req, res) {
-    User.findOne({ _id: req.params.userId })
-      .select('-__v')
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
-
-  //Updates a User
-  updateUser(req, res) {
-    User.findOneAndUpdate(
-        { _id: req.params.userId },
-        { $set: req.body },
-        { runValidators: true, new: true }
-    )
-        .then((user) =>
-            !user
-                ? res.status(404).json({ message: 'No user with that ID' })
-                : res.json(user)
+const userController = {
+    // get all users
+    getUsers(req, res) {
+        //find() on User
+        User.find()
+            .select('-__v')
+            .then((users) => res.json(users))
+            .catch((err) => res.status(500).json(err));
+    },
+    // get single user by id
+    getSingleUser(req, res) {
+        // findOne() on User
+        // use .populate to populate friends and thoughts for that User
+        // ex: .populate('friends')
+        User.findOne({ _id: req.params.userId })
+            .select('-__v')
+            .populate('friends')
+            .populate('thoughts')
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user with that ID' })
+                    : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+    // create a new user
+    createUser(req, res) {
+      User.create(req.body)
+        .then((user) => res.json(user))
+        .catch((err) => {
+          console.log(err);
+          return res.status(500).json(err);
+        });
+    },
+    // update a user
+    updateUser(req, res) {
+        // findOneAndUpdate
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body },
+            { runValidators: true, new: true }
         )
-        .catch((err) => res.status(500).json(err));
-},
-  // create a new user
-  createUser(req, res) {
-    User.create(req.body)
-      .then((user) => res.json(user))
-      .catch((err) => res.status(500).json(err));
-  },
-  // Delete a user and associated apps
-  deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: 'No user with that ID' })
-          : Application.deleteMany({ _id: { $in: user.applications } })
-      )
-      .then(() => res.json({ message: 'User and associated apps deleted!' }))
-      .catch((err) => res.status(500).json(err));
-  },
-  // adds friend to user friends list
-  addFriend(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $addToSet: { friends: req.params.friendId } },
-      { new: true }
-    )
-      .then((user) =>
-        !user
-          ? res
-            .status(404)
-            .json({ message: 'No user with that ID' })
-          : res.json('Added friend 🎉')
-      )
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  },
-  //removes a friend from user friend list
-  deleteFriend(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $pull: { friends: req.params.friendId } },
-      { new: true }
-    )
-      .then((user) =>
-        !user
-          ? res
-            .status(404)
-            .json({ message: 'No user with that ID' })
-          : res.json('Removed friend 🎉')
-      )
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  }
+            .then((user) =>
+                !user
+                    ? res.status(404).json({ message: 'No user with that ID' })
+                    : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+    // delete user (BONUS: and delete associated thoughts)
+    deleteUser(req, res) {
+        // findOneAndDelete
+        User.findOneAndDelete({ _id: req.params.userId })
+            .then((user) => {
+                if (!user) {
+                    res.status(404).json({ message: 'No user with that ID' })
+                } else {
+                    Thought.deleteMany({ _id: { $in: user.thoughts } })
+                    .then(() => res.status(200).json({ message: 'Successfully deleted User' }))
+                }
+            })
+            .catch((err) => res.status(500).json(err));
+    },
+
+    // add friend to friend list
+    addFriend(req, res) {
+        // findOneAndUpdate
+        // use $addToSet - reference activity 23, controllers/postController - check out hows it's being used in the createPost
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $addToSet: { friends: req.params.friendId } },
+            { new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res
+                        .status(404)
+                        .json({ message: 'No user with that ID' })
+                    : res.json('Added friend 🎉')
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    },
+    // remove friend from friend list
+    removeFriend(req, res) {
+        // findOneAndUpdate
+        // use $pull
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId } },
+            { new: true }
+        )
+            .then((user) =>
+                !user
+                    ? res
+                        .status(404)
+                        .json({ message: 'No user with that ID' })
+                    : res.json('Removed friend 🎉')
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    }
 };
+
+module.exports = userController;
