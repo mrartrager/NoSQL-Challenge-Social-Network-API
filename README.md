@@ -1,65 +1,64 @@
-# NoSQL Challenge: Social Network API  Challenge-18
-  
-  ## Description
-  Your challenge is to build an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. You’ll use Express.js for routing, a MongoDB database, and the Mongoose ODM.
- 
-  ## Table of Contents
-  1. [Installation](#installation)
-  2. [Usage](#usage)
-  3. [Screenshots](#screenshots)
-  4. [Credits](#credits)
-  5. [Tests](#tests)
-  6. [License](#license)
-  7. [Questions](#questions)
-  
-  ## Installation
-   npm i express "^4.17.1"    
-   npm i mongoose "^6.0.13"     
-   npm i mongodb "^4.5.0"        
-   npm i "nodemon": "^2.0.9"
-   
+# NoSQL Challenge: Social Network API Challenge-18
 
+## Description
 
-  ## Usage
+Your challenge is to build an API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. You’ll use Express.js for routing, a MongoDB database, and the Mongoose ODM.
+
+## Table of Contents
+
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [Screenshots](#screenshots)
+4. [Credits](#credits)
+5. [Tests](#tests)
+6. [License](#license)
+7. [Questions](#questions)
+
+## Installation
+
+npm i express "^4.17.1"  
+ npm i mongoose "^6.0.13"  
+ npm i mongodb "^4.5.0"  
+ npm i "nodemon": "^2.0.9"
+
+## Usage
 
 scripts:
-  "start": "node index",
-    "dev": "nodemon index",
-    "seed": "node utils/seed"
+"start": "node index",<br>
+"dev": "nodemon index",<br>
+"seed": "node utils/seed"<br>
 
-    
-   Make sure to have insomnia or something similar installed:
+Make sure to have insomnia or something similar installed:
 
 THOUGHTS:
 
-localhost:5001/api/thoughts - shows all thoughts made by users (get)
-localhost:5001/api/thoughts/63c4a3a50cb775b7b4f10a18 - shows thought made by user (get)
-localhost:5001/api/thoughts - create a thought (post)
-localhost:5001/api/thoughts/63c4a3a50cb775b7b4f10a18 - deletes a thought (delete)
-localhost:5001/api/thoughts/63c5e89e183665bee8353e10 - updates a thought (put)
+localhost:5001/api/thoughts - shows all thoughts made by users (get)<br>
+localhost:5001/api/thoughts/63c4a3a50cb775b7b4f10a18 - shows thought made by user (get)<br>
+localhost:5001/api/thoughts - create a thought (post)<br>
+localhost:5001/api/thoughts/63c4a3a50cb775b7b4f10a18 - deletes a thought (delete)<br>
+localhost:5001/api/thoughts/63c5e89e183665bee8353e10 - updates a thought (put)<br>
 
-USERS: 
+USERS:
 
-localhost:5001/api/users - Shows all users (get)
-localhost:5001/api/users/63c4a32d0cb775b7b4f10a10 - shows user by id (get)
-localhost:5001/api/users - create a user (post)
-localhost:5001/api/users/63c4a32d0cb775b7b4f10a10 - Deletes a user (delete)
-localhost:5001/api/users/63c49c60f8489141a41d2097 - updates a user (put)
+localhost:5001/api/users - Shows all users (get)<br>
+localhost:5001/api/users/63c4a32d0cb775b7b4f10a10 - shows user by id (get)<br>
+localhost:5001/api/users - create a user (post)<br>
+localhost:5001/api/users/63c4a32d0cb775b7b4f10a10 - Deletes a user (delete)<br>
+localhost:5001/api/users/63c49c60f8489141a41d2097 - updates a user (put)<br>
 
-
-#Link to Demo 
+#Link to Demo
 https://drive.google.com/file/d/1KEW4C0FL4nZBLykrCV9waQ3B86-VYmyP/view
 
+## Screenshots
 
- ## Screenshots
- All Thoughts:
- ![Alt text](assets/allThoughts.jpeg)
+All Thoughts:
+![Alt text](assets/allThoughts.jpeg)
 
 Single Thought:
- ![Alt text](assets/singleThought.jpeg)
+![Alt text](assets/singleThought.jpeg)
 
 Create a thought:
- ![Alt text](assets/createThought.jpeg)
+![Alt text](assets/createThought.jpeg)
 
 Delete a thought:
 ![Alt text](assets/deleteThought.jpeg)
@@ -82,18 +81,15 @@ Delete a user:
 Updates a User:
 ![Alt text](assets/update_User.jpeg)
 
+## Tests
 
-  ## Tests
-  N/A
-  
+N/A
 
-  ## License
-  
+## License
+
 Licensed under the [MIT license](https://choosealicense.com/licenses/mit/)
-  
 
-  ## Questions
+## Questions
 
-  - GitHub: https://github.com/mrartrager/NoSQL-Challenge-Social-Network-API
-  - Email: matthew.d.waldron@gmail.com
-
+- GitHub: https://github.com/mrartrager/NoSQL-Challenge-Social-Network-API
+- Email: matthew.d.waldron@gmail.com
