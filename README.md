@@ -21,6 +21,13 @@
 
 
   ## Usage
+
+scripts:
+  "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed"
+
+    
    Make sure to have insomnia or something similar installed:
 
 THOUGHTS:

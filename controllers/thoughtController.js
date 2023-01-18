@@ -47,7 +47,6 @@ const thoughtController = {
     },
     // update thought
     updateThought(req, res) {
-        // findOneAndUpdate() on Thought model
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $set: req.body },
@@ -77,7 +76,6 @@ const thoughtController = {
     // add a reaction to a thought
     addReaction(req, res) {
         // findOneAndUpdate
-        // use $addToSet - reference activity 23, controllers/postController - check out hows it's being used in the createPost
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $addToSet: { reactions: { reactionBody: req.body.reactionBody, username: req.body.username } } },
@@ -98,7 +96,6 @@ const thoughtController = {
     // remove reaction from a thought
     removeReaction(req, res) {
         // findOneAndUpdate
-        // use $pull
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $pull: { reactions: { _id: req.params.reactionId } } },
